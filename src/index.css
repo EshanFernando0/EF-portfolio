@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background-light: #f9fafb;
+  --color-foreground-light: #111827;
+  --color-background-dark: #0a0a0a;
+  --color-foreground-dark: #f3f4f6;
+  --color-accent: #3b82f6;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-float-delayed: float 4s ease-in-out 2s infinite;
+  --animate-float-slow: float 6s ease-in-out infinite;
+
+  --animate-spin-slow: spin 20s linear infinite;
+  --animate-spin-reverse-slow: spin-reverse 20s linear infinite;
+  --animate-spin-slower: spin 30s linear infinite;
+  --animate-spin-reverse-slower: spin-reverse 30s linear infinite;
+
+  --animate-fade-in-up: fade-in-up 1s ease-out forwards;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  @keyframes spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+
+  @keyframes fade-in-up {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 transition-colors duration-300 font-sans antialiased;
+  }
+  .dark body {
+    @apply bg-[#0a0a0a] text-gray-400;
+  }
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    @apply text-white;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
