@@ -416,9 +416,6 @@ function App() {
                 >
                   <Mail size={20} /> Send Message
                 </button>
-                <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                  This opens your email app with the message prefilled and sends it directly to {personalInfo.email}.
-                </p>
               </form>
             </div>
           </div>
