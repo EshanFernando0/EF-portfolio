@@ -8,10 +8,10 @@ export const personalInfo = {
   location: "Panadura, Sri Lanka",
   socials: {
     github: "https://github.com/EshanFernando0",
-    linkedin: "https://linkedin.com",
+    linkedin: "https://www.linkedin.com/in/eshan-fernando-8a1182330/",
     instagram: "https://instagram.com"
   },
-  cvUrl: "/eshan-cv.pdf"
+  cvUrl: "eshan-cv.pdf"
 };
 
 export const techStack = [
@@ -45,7 +45,7 @@ export const projects = [
     title: "Nexora (Real-Time Snake ID)",
     description: "A mobile application utilizing Convolutional Neural Networks (CNNs) to process images and provide accurate species information instantly. Powered by Azure cloud infrastructure for fast processing.",
     tech: ["CNNs", "Azure", "Mobile Dev"],
-    image: "/project_nexora.jpg",
+    image: "project_nexora.jpg",
     liveUrl: "#",
     githubUrl: "https://github.com/EshanFernando0/real-time-snake-identification.git"
   },
@@ -54,7 +54,7 @@ export const projects = [
     title: "Student Performance Prediction Model",
     description: "An analytical machine learning model developed to predict and evaluate student performance based on historical inputs and data sets.",
     tech: ["Machine Learning", "Python"],
-    image: "/project_student.png", 
+    image: "project_student.png", 
     liveUrl: "#",
     githubUrl: "https://github.com/EshanFernando0/Student_Performance_Prediction_Model.git"
   },
@@ -63,7 +63,7 @@ export const projects = [
     title: "Wanderly Travel App",
     description: "A comprehensive travel platform utilizing Firebase for Cloud Firestore database management and MongoDB Atlas for structured data organization.",
     tech: ["Firebase", "MongoDB Atlas"],
-    image: "/project_wanderly.jpg",
+    image: "project_wanderly.jpg",
     liveUrl: "#",
     githubUrl: "https://github.com/EshanFernando0/Travel_App_v0.1.git"
   },
@@ -72,7 +72,7 @@ export const projects = [
     title: "Rentme Platform",
     description: "A functional and optimized web application serving as a comprehensive rental services platform.",
     tech: ["Web Development"],
-    image: "/project_tuition.png",
+    image: "project_tuition.png",
     liveUrl: "#",
     githubUrl: "https://github.com/EshanFernando0/website.git"
   },
@@ -81,9 +81,25 @@ export const projects = [
     title: "Stitch & Shine Billing System",
     description: "A digital billing and quotation management system tailored for an embroidery business. It manages client transactions efficiently without tax calculations, exclusively operating in Sri Lankan Rupees (Rs).",
     tech: ["Billing Logic", "React", "Node.js"],
-    image: "/project_stitch_shine.png",
+    image: "project_stitch_shine.png",
     liveUrl: "#",
     githubUrl: "#"
+  },
+  {
+    id: 6,
+    title: "Twinkly Nails: Salon Management & Digital Presence",
+    description: "The client needed a professional digital presence that allowed for real-time menu management, dynamic promotions, and seamless communication with clients via WhatsApp, while ensuring a high-performance experience on mobile devices.",
+    tech: ["React", "Tailwind CSS", "Vite"],
+    images: [
+      "project_twinkly_1.jpg",
+      "project_twinkly_2.jpg",
+      "project_twinkly_3.jpg",
+      "project_twinkly_4.jpg",
+      "project_twinkly_5.jpg",
+      "project_twinkly_6.jpg"
+    ],
+    liveUrl: "https://eshanfernando0.github.io/twinkly-nails/#/",
+    githubUrl: "https://github.com/EshanFernando0/twinkly-nails"
   }
 ];
 

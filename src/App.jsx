@@ -2,10 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Github, Linkedin, Instagram, Mail, Download, ExternalLink, Menu, X } from 'lucide-react';
 import { personalInfo, techStack, projects, education, softSkills } from './portfolioData';
 import TechGlobe from './TechGlobe';
+import Slideshow from './components/Slideshow';
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
   
   const roles = ["DevOps", "Backend", "Mobile"];
   const [roleIndex, setRoleIndex] = useState(0);
@@ -43,6 +49,27 @@ function App() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleContactChange = (event) => {
+    const { name, value } = event.target;
+    setContactForm((previous) => ({
+      ...previous,
+      [name]: value
+    }));
+  };
+
+  const handleContactSubmit = (event) => {
+    event.preventDefault();
+
+    const subject = encodeURIComponent(`Portfolio inquiry from ${contactForm.name || 'a visitor'}`);
+    const body = encodeURIComponent(
+      `Name: ${contactForm.name || 'Not provided'}\n` +
+      `Email: ${contactForm.email || 'Not provided'}\n\n` +
+      `${contactForm.message || ''}`
+    );
+
+    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -141,7 +168,7 @@ function App() {
           <div className="relative mt-16 w-full max-w-xl mx-auto aspect-square flex justify-center items-center">
             <div className="relative z-10 w-72 h-72 md:w-[26rem] md:h-[26rem] flex items-center justify-center">
                <img 
-                 src="/profile.png" 
+                 src="profile.png" 
                  alt="Profile" 
                  className="object-contain w-full h-full drop-shadow-[0_0_8px_rgba(255,255,255,0.7)] hover:drop-shadow-[0_0_15px_rgba(255,255,255,1)] transition-all duration-500" 
                  style={{ 
@@ -159,7 +186,7 @@ function App() {
             <div className="absolute top-[45%] left-[5%] animate-float-slow"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
             <div className="absolute top-[45%] right-[5%] animate-float"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
             <div className="absolute bottom-[20%] left-[10%] animate-float-delayed"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
-            <div className="absolute bottom-[25%] right-[10%] animate-float-slow"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
+            <div className="absolute bottom-[25%] right-[10%] animate-float-slow"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
           </div>
         </section>
 
@@ -273,13 +300,19 @@ function App() {
                     {/* Project Image */}
                     <div className="w-full md:w-1/2 group relative">
                       <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                      <div className="relative rounded-2xl overflow-hidden bg-gray-200 dark:bg-gray-800 aspect-video shadow-2xl">
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
+                      {project.images && project.images.length > 0 ? (
+                        <div className="relative">
+                          <Slideshow images={project.images} />
+                        </div>
+                      ) : (
+                        <div className="relative rounded-2xl overflow-hidden bg-gray-200 dark:bg-gray-800 aspect-video shadow-2xl">
+                          <img 
+                            src={project.image} 
+                            alt={project.title} 
+                            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                      )}
                     </div>
                     
                     {/* Project Details */}
@@ -300,6 +333,17 @@ function App() {
                           </span>
                         ))}
                       </div>
+
+                      {project.liveUrl && project.liveUrl !== '#' && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 mt-2 px-5 py-3 rounded-full bg-blue-500 text-white font-medium shadow-lg shadow-blue-500/30 hover:bg-blue-600 transition-colors w-fit"
+                        >
+                          Visit <ExternalLink size={16} />
+                        </a>
+                      )}
                     </div>
                     
                   </div>
@@ -321,10 +365,7 @@ function App() {
             </div>
             
             <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-gray-800">
-              {/* Web3Forms Integration */}
-              <form action="https://api.web3forms.com/submit" method="POST" className="space-y-6">
-                {/* Replace with actual access key from Web3Forms */}
-                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+              <form onSubmit={handleContactSubmit} className="space-y-6">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -334,6 +375,8 @@ function App() {
                       id="name" 
                       name="name" 
                       required
+                      value={contactForm.name}
+                      onChange={handleContactChange}
                       className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
                       placeholder="John Doe"
                     />
@@ -345,6 +388,8 @@ function App() {
                       id="email" 
                       name="email" 
                       required
+                      value={contactForm.email}
+                      onChange={handleContactChange}
                       className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
                       placeholder="john@example.com"
                     />
@@ -358,6 +403,8 @@ function App() {
                     name="message" 
                     rows="5" 
                     required
+                    value={contactForm.message}
+                    onChange={handleContactChange}
                     className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow resize-none"
                     placeholder="Hello, I'd like to talk about..."
                   ></textarea>
@@ -369,6 +416,9 @@ function App() {
                 >
                   <Mail size={20} /> Send Message
                 </button>
+                <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+                  This opens your email app with the message prefilled and sends it directly to {personalInfo.email}.
+                </p>
               </form>
             </div>
           </div>
