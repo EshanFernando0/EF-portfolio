@@ -98,7 +98,7 @@ export const projects = [
       "project_twinkly_5.jpg",
       "project_twinkly_6.jpg"
     ],
-    liveUrl: "https://eshanfernando0.github.io/twinkly-nails/#/",
+    liveUrl: "https://twinkly-nails.vercel.app/",
     githubUrl: "https://github.com/EshanFernando0/twinkly-nails"
   }
 ];
