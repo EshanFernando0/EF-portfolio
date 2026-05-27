@@ -98,8 +98,21 @@ export const projects = [
       "project_twinkly_5.jpg",
       "project_twinkly_6.jpg"
     ],
-    liveUrl: "https://twinkly-nails.vercel.app/",
+    liveUrl: "https://twinkly-nails.vercel.app",
     githubUrl: "https://github.com/EshanFernando0/twinkly-nails"
+  }
+  ,
+  {
+    id: 7,
+    title: "Pixora — Full-Stack Media Discovery Platform",
+    description: "A responsive, full-stack web application designed for discovering and tracking movies and TV shows. Built with React and Node.js, it features a public 'Lazy Registration' exploration model, secure JWT authentication for personalized watchlists, and a cloud-based PostgreSQL database.",
+    tech: ["React", "Node.js", "PostgreSQL", "JWT", "Vercel"],
+    images: [
+      "pixora_1.png",
+      "pixora_2.png"
+    ],
+    liveUrl: "https://pixora-lmxk.vercel.app/",
+    githubUrl: "#"
   }
 ];
 

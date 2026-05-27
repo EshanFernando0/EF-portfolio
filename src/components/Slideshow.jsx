@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 
-export default function Slideshow({ images = [], interval = 3500 }) {
+export default function Slideshow({ images = [], interval = 3500, aspect = 'video' }) {
   const [index, setIndex] = useState(0);
   const resolvedImages = useMemo(
     () => images.map((img) => `${import.meta.env.BASE_URL}${img}`),
@@ -25,19 +25,18 @@ export default function Slideshow({ images = [], interval = 3500 }) {
 
   if (!visibleImages || visibleImages.length === 0) return null;
 
+  const aspectClass = aspect === 'portrait' ? 'aspect-[3/4]' : 'aspect-video';
+
   return (
-    <div className="relative w-full rounded-2xl overflow-hidden bg-gray-200 aspect-video shadow-2xl">
+    <div className={`relative w-full rounded-2xl overflow-hidden bg-gray-200 ${aspectClass} shadow-2xl`}>
       <div className="absolute inset-0 flex transition-transform duration-700" style={{ transform: `translateX(-${safeIndex * 100}%)` }}>
         {visibleImages.map((img, i) => (
-          <img
+          <div
             key={i}
-            src={img}
-            alt={`slide-${i + 1}`}
-            className="w-full h-full object-cover flex-shrink-0"
-            onError={(event) => {
-              const failedSrc = event.currentTarget.getAttribute('src');
-              setVisibleImages((currentImages) => currentImages.filter((currentSrc) => currentSrc !== failedSrc));
-            }}
+            className="w-full h-full min-w-full flex-shrink-0 block bg-center bg-cover"
+            style={{ backgroundImage: `url('${img}')` }}
+            role="img"
+            aria-label={`slide-${i + 1}`}
           />
         ))}
       </div>
