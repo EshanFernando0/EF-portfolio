@@ -114,6 +114,22 @@ export const projects = [
     liveUrl: "https://pixora-lmxk.vercel.app/",
     githubUrl: "#"
   }
+  ,
+  {
+    id: 8,
+    title: "Linguist AI",
+    description: "Linguist AI is a powerful, offline-first mobile application designed to bridge language barriers through real-time Optical Character Recognition (OCR) and intelligent translation. Built specifically for users who need quick, reliable translation for day-to-day tasks.",
+    tech: ["Offline-first", "OCR", "Translation", "Mobile App"],
+    images: [
+      "linguist-ai/linguist_1.jpg",
+      "linguist-ai/linguist_2.jpg",
+      "linguist-ai/linguist_3.jpeg",
+      "linguist-ai/linguist_4.jpeg"
+    ],
+    image: "linguist-ai/linguist_1.jpg",
+    liveUrl: "#",
+    githubUrl: "#"
+  }
 ];
 
 export const fullTechStack = [
