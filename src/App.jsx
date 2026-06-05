@@ -13,8 +13,58 @@ function App() {
     message: ''
   });
   
-  const roles = ["DevOps", "Backend", "Mobile"];
+  const roles = ["Mobile", "Web", "DevOps", "Backend", "Fullstack", "AI ML"];
   const [roleIndex, setRoleIndex] = useState(0);
+  const heroIcons = [
+    {
+      key: 'react',
+      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg',
+      alt: 'React',
+      left: 18,
+      top: 16,
+      animation: 'animate-float'
+    },
+    {
+      key: 'flutter',
+      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg',
+      alt: 'Flutter',
+      left: 82,
+      top: 18,
+      animation: 'animate-float-delayed'
+    },
+    {
+      key: 'nodejs',
+      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg',
+      alt: 'Node.js',
+      left: 10,
+      top: 52,
+      animation: 'animate-float-slow'
+    },
+    {
+      key: 'python',
+      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg',
+      alt: 'Python',
+      left: 90,
+      top: 46,
+      animation: 'animate-float'
+    },
+    {
+      key: 'firebase',
+      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg',
+      alt: 'Firebase',
+      left: 22,
+      top: 84,
+      animation: 'animate-float-delayed'
+    },
+    {
+      key: 'tensorflow',
+      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg',
+      alt: 'TensorFlow',
+      left: 78,
+      top: 84,
+      animation: 'animate-float-slow'
+    }
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -157,7 +207,7 @@ function App() {
             <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight mb-4">
               <span key={roleIndex} className="text-[#0ea5e9] animate-fade-in-up inline-block">
                 {roles[roleIndex]}
-              </span> <span className="text-gray-300">Developer</span>
+              </span> {!roles[roleIndex].includes("Developer") && <span className="text-gray-300">Developer</span>}
             </h1>
             <p className="text-sm md:text-base text-gray-400 max-w-2xl mx-auto italic">
               *{personalInfo.tagline}*
@@ -165,8 +215,8 @@ function App() {
           </div>
           
           {/* Central Image with White Outline effect & Floating Icons */}
-          <div className="relative mt-16 w-full max-w-xl mx-auto aspect-square flex justify-center items-center">
-            <div className="relative z-10 w-72 h-72 md:w-[26rem] md:h-[26rem] flex items-center justify-center">
+          <div className="relative mt-16 w-full max-w-2xl mx-auto aspect-square flex justify-center items-center">
+            <div className="relative z-10 w-[min(23.4rem,90vw)] h-[min(23.4rem,90vw)] md:w-[min(33.8rem,90vw)] md:h-[min(33.8rem,90vw)] flex items-center justify-center translate-x-8 md:translate-x-16 -translate-y-2 md:-translate-y-4">
                <img 
                  src="profile.png" 
                  alt="Profile" 
@@ -181,12 +231,17 @@ function App() {
             </div>
 
             {/* Floating Tech Icons around image */}
-            <div className="absolute top-[10%] left-[20%] animate-float"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
-            <div className="absolute top-[20%] right-[15%] animate-float-delayed"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg" alt="Flutter" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
-            <div className="absolute top-[45%] left-[5%] animate-float-slow"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
-            <div className="absolute top-[45%] right-[5%] animate-float"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
-            <div className="absolute bottom-[20%] left-[10%] animate-float-delayed"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" alt="Firebase" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
-            <div className="absolute bottom-[25%] right-[10%] animate-float-slow"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" className="w-10 h-10 md:w-14 md:h-14 opacity-90 drop-shadow-lg" /></div>
+            {heroIcons.map((icon) => (
+              <div
+                key={icon.key}
+                className="absolute w-10 h-10 md:w-14 md:h-14"
+                style={{ left: `${icon.left}%`, top: `${icon.top}%`, transform: 'translate(-50%, -50%)' }}
+              >
+                <div className={icon.animation}>
+                  <img src={icon.src} alt={icon.alt} className="w-full h-full opacity-90 drop-shadow-lg" />
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

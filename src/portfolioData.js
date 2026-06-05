@@ -129,6 +129,21 @@ export const projects = [
     image: "linguist-ai/linguist_1.jpg",
     liveUrl: "#",
     githubUrl: "#"
+  },
+  {
+    id: 9,
+    title: "Working in Progress: EV Charge Locator",
+    description: "A community-driven Android app to help drivers find, add, and report on EV charging stations across Sri Lanka. Built with a modern Jetpack Compose UI, it features interactive OpenStreetMap (OSMdroid) integration with live GPS tracking, localized pricing (Rs.), crowdsourced station registration, and a gamified contributor leaderboard.",
+    tech: ["Kotlin", "Jetpack Compose", "OSMdroid", "Coil", "Google Location Services"],
+    images: [
+      "ev-charge-locator/slide-1.svg",
+      "ev-charge-locator/slide-2.svg",
+      "ev-charge-locator/slide-3.svg",
+      "ev-charge-locator/slide-4.svg"
+    ],
+    image: "ev-charge-locator/slide-1.svg",
+    liveUrl: "#",
+    githubUrl: "#"
   }
 ];
 
