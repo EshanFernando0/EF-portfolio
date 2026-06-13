@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Github, Linkedin, Instagram, Mail, Download, ExternalLink, Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Github, Linkedin, Instagram, Mail, ExternalLink, Menu, X } from 'lucide-react';
 import { personalInfo, techStack, projects, education, softSkills } from './portfolioData';
 import TechGlobe from './TechGlobe';
 import Slideshow from './components/Slideshow';
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [contactForm, setContactForm] = useState({
@@ -71,16 +70,12 @@ function App() {
       setRoleIndex((prev) => (prev + 1) % roles.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [roles.length]);
 
-  // Toggle theme
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+    document.documentElement.classList.add('dark');
+    return () => document.documentElement.classList.remove('dark');
+  }, []);
 
   // Track mouse position for custom cursor
   useEffect(() => {
@@ -91,8 +86,6 @@ function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const toggleTheme = () => setDarkMode(!darkMode);
-  
   const scrollToSection = (id) => {
     setIsMenuOpen(false);
     const element = document.getElementById(id);
@@ -123,11 +116,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen font-sans selection:bg-[#0ea5e9] selection:text-white bg-[#0a0a0a] text-white">
+    <div className="min-h-screen font-sans selection:bg-[#0ea5e9] selection:text-white bg-background-dark text-white">
       
       {/* Custom Cursor */}
       <div 
-        className="hidden lg:flex fixed pointer-events-none z-[100] w-4 h-4 rounded-full bg-[#0ea5e9] shadow-[0_0_15px_#0ea5e9] items-center justify-center transition-transform duration-75 ease-out"
+        className="hidden lg:flex fixed pointer-events-none z-100 w-4 h-4 rounded-full bg-[#0ea5e9] shadow-[0_0_15px_#0ea5e9] items-center justify-center transition-transform duration-75 ease-out"
         style={{ left: 0, top: 0, transform: `translate(${mousePos.x - 8}px, ${mousePos.y - 8}px)` }}
       >
         <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
@@ -135,11 +128,11 @@ function App() {
       </div>
 
       {/* Navbar Component */}
-      <nav className="fixed top-0 w-full z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-gray-900 transition-colors duration-300">
+      <nav className="fixed top-0 w-full z-50 bg-background-dark/90 backdrop-blur-md border-b border-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <div className="flex-shrink-0 font-bold text-3xl tracking-tighter cursor-pointer text-white flex items-center" onClick={() => window.scrollTo(0, 0)}>
+            <div className="shrink-0 font-bold text-3xl tracking-tighter cursor-pointer text-white flex items-center" onClick={() => window.scrollTo(0, 0)}>
               EF<span className="text-[#0ea5e9]">.</span>dev
             </div>
             
@@ -168,7 +161,7 @@ function App() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden bg-[#0a0a0a] border-b border-gray-900">
+          <div className="md:hidden bg-background-dark border-b border-gray-900">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <button onClick={() => scrollToSection('about')} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-900">About</button>
               <button onClick={() => scrollToSection('projects')} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-900">Projects</button>
@@ -216,7 +209,7 @@ function App() {
           
           {/* Central Image with White Outline effect & Floating Icons */}
           <div className="relative mt-16 w-full max-w-2xl mx-auto aspect-square flex justify-center items-center">
-            <div className="relative z-10 w-[min(23.4rem,90vw)] h-[min(23.4rem,90vw)] md:w-[min(33.8rem,90vw)] md:h-[min(33.8rem,90vw)] flex items-center justify-center translate-x-8 md:translate-x-16 -translate-y-2 md:-translate-y-4">
+            <div className="relative z-10 w-[min(23.4rem,90vw)] h-[min(23.4rem,90vw)] md:w-[min(33.8rem,90vw)] md:h-[min(33.8rem,90vw)] flex items-center justify-center">
                <img 
                  src="profile.png" 
                  alt="Profile" 
@@ -227,7 +220,7 @@ function App() {
                  }}
                />
                {/* Fading bottom gradient overlay to blend with background */}
-               <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#0a0a0a] to-transparent z-20 pointer-events-none"></div>
+               <div className="absolute bottom-0 left-0 w-full h-24 bg-linear-to-t from-background-dark to-transparent z-20 pointer-events-none"></div>
             </div>
 
             {/* Floating Tech Icons around image */}
@@ -246,8 +239,8 @@ function App() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a] relative">
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent"></div>
+        <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 bg-background-dark relative">
+          <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-gray-800 to-transparent"></div>
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">About <span className="text-[#0ea5e9]">Me</span></h2>
@@ -325,7 +318,7 @@ function App() {
                 <h3 className="text-2xl font-bold mb-6 text-white">Soft Skills</h3>
                 <div className="flex flex-wrap gap-3">
                   {softSkills.map((skill, index) => (
-                    <span key={index} className="px-4 py-2 bg-[#1a1a1c] text-gray-300 rounded-xl text-sm font-medium border border-gray-800 flex-grow text-center hover:border-[#0ea5e9]/50 transition-colors">
+                    <span key={index} className="px-4 py-2 bg-[#1a1a1c] text-gray-300 rounded-xl text-sm font-medium border border-gray-800 grow text-center hover:border-[#0ea5e9]/50 transition-colors">
                       {skill}
                     </span>
                   ))}
@@ -354,7 +347,7 @@ function App() {
                     
                     {/* Project Image */}
                     <div className="w-full md:w-1/2 group relative">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                      <div className="absolute -inset-1 bg-linear-to-r from-blue-500 to-purple-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                       {project.images && project.images.length > 0 ? (
                         <div className="relative">
                           <Slideshow images={project.images} />
@@ -479,7 +472,7 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 text-center border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0a0a0a]">
+      <footer className="py-8 text-center border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark">
         <p className="text-gray-500 dark:text-gray-400 text-sm">
           &copy; {new Date().getFullYear()} Eshan Fernando. Designed & Built with ❤️.
         </p>
